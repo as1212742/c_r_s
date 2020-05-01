@@ -1,4 +1,4 @@
-# Node.js & Passport Login
+# IIITB Course Review System
 
 This is a user login and registration app using Node.js, Express, Passport, Mongoose, EJS and some other packages.
 
