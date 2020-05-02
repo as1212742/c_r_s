@@ -20,6 +20,7 @@ mongoose.connect('mongodb://localhost/LoginApp',{
 .then(()=>console.log("Successful"))
 .catch(err=>console.error("error"))
 
+mongoose.set('useFindAndModify', false);
 // EJS
 app.use(expressLayouts);
 app.set('view engine', 'ejs');

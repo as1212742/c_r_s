@@ -9,11 +9,13 @@ router.get('/', forwardAuthenticated, (req, res) => res.render('welcome'));
 router.get('/dashboard', ensureAuthenticated, async (req, res) =>{
   //update this populate
  // courses=[dm,spe]
-  // courses=Course.find().populate({path:"Reviews",populate:{path:"Student"}})
-   course=await Course.find()
+   courses=await Course.find().populate({path:"Reviews",populate:{path:"student"}})
+  // console.log("\n",courses)
+
+   //course=await Course.find()
     res.render('dashboard', {
       user:req.user,
-      courses:course
+      courses:courses
     })}
   );
   

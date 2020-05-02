@@ -24,38 +24,38 @@ const courseSchema=new Schema(
            
         },
         Rating1:{
-            type:Number,
+            type:String,
             
 
 
         },
         Rating2:{
-            type:Number,
+            type:String,
             
 
 
         },
         Rating3:{
-            type:Number,
+            type:String,
             
 
 
         },
         Rating4:{
-            type:Number,
+            type:String,
             
 
 
         },
         Rating5:{
-            type:Number,
+            type:String,
             
 
 
         },
         Net_Rating:
         {
-            type:Number,
+            type:String,
             
         },
         Reviews:[

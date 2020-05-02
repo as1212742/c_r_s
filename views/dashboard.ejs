@@ -15,8 +15,7 @@
 </div>
 
 
-
-
+<div class="card mt-5">
 <%  courses.forEach(courses=>   {   %>
 
     <div class="card mt-4">
@@ -28,31 +27,28 @@
                 <%= courses.sem %>
             </div>
             <div class="card-text mb-2"><%= courses.desc %></div>
-            <div class="card-text mb-2"><%= courses.faculty %></div>            
+            <div class="card-text mb-2"><%= courses.Faculty %></div>            
             Rating1:<div class="card-text mb-2"><%= courses.Rating1 %></div>
             Rating2:<div class="card-text mb-2"><%= courses.Rating2 %></div>
             Rating3:<div class="card-text mb-2"><%= courses.Rating3 %></div>
             Rating4:<div class="card-text mb-2"><%= courses.Rating4 %></div>
             Rating5:<div class="card-text mb-2"><%= courses.Rating5 %></div>
             Net_Rating:<div class="card-text mb-2"><%= courses.Net_Rating %></div>
-            Reviews:
-                
-                <%  courses.Reviews.forEach(review=>  {   %>
-
-                Rating1:<%= review.Rating1 %> 
-                Rating2:<%= review.Rating2 %>
-                Rating3:<%= review.Rating3 %> 
-                Reviewed By:<%= review.User.name %>  
-
+            Reviews:<div class="card-text mb-2"> <%  courses.Reviews.forEach(review=>  {   %>
+            <div class="card-text mb-2"> 
+                Rating1:<%= review.rating1 %> 
+                Rating2:<%= review.rating2 %> 
+                Rating3:<%= review.rating3 %> 
+                Reviewed By:<%= review.student.name %>  
+                </div>
+            </div>
                  
 
 
                 <% })     %> 
-          
-        </div>
-    </div>
+             </div>   
+         </div>
+    
 
-
-<% })     %>
-
+<%  })  %>
 </div>

@@ -126,14 +126,14 @@ router.get('/addReview', ensureAuthenticated,async (req, res) =>{
 });
 
 
-
-router.post('/addReview',async (req,res)=>{
+var course_id
+router.post('/addReview', ensureAuthenticated,async(req,res)=>{
   
   let errors=[]
-  const { course,rating1, rating2, rating3, rating4 ,rating5,net_rating,stud_id} = req.body;
+  var { course,rating1, rating2, rating3, rating4 ,rating5,net_rating,stud_id} = req.body;
   //validation
   if (!stud_id || !rating1 || !rating2 || !rating3 ||!rating4 || !rating5 || !net_rating) {
-    console.log("\n",course+rating1+rating2+rating3+rating4+rating5+net_rating+stud_id)
+   // console.log("\n",course+rating1+rating2+rating3+rating4+rating5+net_rating+stud_id)
     errors.push({ msg: 'Please enter all fields' });
   }
 
@@ -145,11 +145,32 @@ router.post('/addReview',async (req,res)=>{
     });
   } else {
 
+    console.log("\n",course+rating1+rating2+rating3+rating4+rating5+net_rating+stud_id)
+    
+         //get course._id
+     await Course.findOne({name:course},'_id', function(err,result){
+      if(err)
+        {errors.push({ msg: 'Cant find course' })
+            res.render('addReview', {
+              errors,
+              user: req.user,courses,student,rating1, rating2, rating3, rating4 ,rating5,net_rating
+            });
+          }
+
+          else{
+            course_id=result
+
+          }
+     
+    })
 
 
-    const review1 = new Review({
-      course,rating1, rating2, rating3, rating4 ,rating5,net_rating,stud_id
-    });
+
+   course=course_id._id
+    student=req.user._id
+   const review1 = new Review({
+     rating1, rating2, rating3, rating4 ,rating5,net_rating,student,course
+    })
    
     review1.save()
 
@@ -159,7 +180,7 @@ router.post('/addReview',async (req,res)=>{
             errors.push({ msg: 'Cant find user id' })
             res.render('addReview', {
               errors,
-              user: req.user,courses,stud_id,rating1, rating2, rating3, rating4 ,rating5,net_rating
+              user: req.user,courses,student,rating1, rating2, rating3, rating4 ,rating5,net_rating
             });
           }
 
@@ -172,7 +193,12 @@ router.post('/addReview',async (req,res)=>{
            
           }
         });
-        course_rating=Review.transactions.aggregate([
+
+       
+        
+
+
+  course_rating=await Review.aggregate([
 
           {$match:{
             "Course":course
@@ -181,11 +207,11 @@ router.post('/addReview',async (req,res)=>{
             $group:{
     
               _id:null,
-              rating1_avg:{$avg:"$Rating1"},
-              rating2_avg:{$avg:"$Rating2"},
-              rating3_avg:{$avg:"$Rating3"},
-              rating4_avg:{$avg:"$Rating4"},
-              net_rating_avg:{$avg:"$Net_Rating"},
+              rating1_avg:{$avg:"$rating1"},
+              rating2_avg:{$avg:"$rating2"},
+              rating3_avg:{$avg:"$rating3"},
+              rating4_avg:{$avg:"$rating4"},
+              net_rating_avg:{$avg:"$net_Rating"},
               
     
             }
@@ -196,7 +222,7 @@ router.post('/addReview',async (req,res)=>{
     
         ])
 //update course
-    Course.findOneAndUpdate({ name: course } ,{$push:{Reviews:review1._id },
+    await Course.findOneAndUpdate({ _id: course } ,{$push:{Reviews:review1._id },
     $set:{Rating1:course_rating.rating1_avg},
     $set:{Rating2:course_rating.rating2_avg},
     $set:{Rating3:course_rating.rating3_avg},
@@ -250,9 +276,9 @@ router.get('/addCourse', ensureAuthenticated, (req, res) =>{
 router.post('/addCourse',(req,res)=>{
   
   let errors=[]
-  const { name,sem,desc,faculty} = req.body;
+  const { name,sem,desc,Faculty} = req.body;
   //validation
-  if (!name || !sem || !desc || !faculty ) {
+  if (!name || !sem || !desc || !Faculty ) {
     errors.push({ msg: 'Please enter all fields' });
   }
 
@@ -260,13 +286,19 @@ router.post('/addCourse',(req,res)=>{
   if (errors.length > 0) {
     res.render('addCourse', {
       errors,
-      name,sem,desc,faculty
+      name,sem,desc,Faculty
     });
   } else {
+    Rating1=0
+    Rating2=0
+    Rating3=0
+    Rating4=0
+    Rating5=0
+    Net_Rating=0
 
 
     const course1 = new Course({
-      name,sem,desc,faculty
+      name,sem,desc,Faculty,Rating1,Rating2,Rating3,Rating4,Rating5,Net_Rating
     });
 
 /*
