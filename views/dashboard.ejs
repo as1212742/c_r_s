@@ -1,0 +1,58 @@
+<h1 class="mt-4">Dashboard</h1>
+<p class="lead mb-3">Welcome <%= user.name %></p>
+<a href="/users/logout" class="btn btn-secondary">Logout</a>
+
+
+<div class="container">
+    <a href="/users/addReview" class="btn btn-success">Add a Review</a>
+
+</div>
+
+
+<div class="container">
+    <a href="/users/addCourse" class="btn btn-success">Add Course</a>
+
+</div>
+
+
+
+
+<%  courses.forEach(courses=>   {   %>
+
+    <div class="card mt-4">
+        
+
+        <div class="card-body">
+            <h4 class="card-title"><%=courses.name %></h4>
+            <div class="card-subtitletext-muted mb-2">
+                <%= courses.sem %>
+            </div>
+            <div class="card-text mb-2"><%= courses.desc %></div>
+            <div class="card-text mb-2"><%= courses.faculty %></div>            
+            Rating1:<div class="card-text mb-2"><%= courses.Rating1 %></div>
+            Rating2:<div class="card-text mb-2"><%= courses.Rating2 %></div>
+            Rating3:<div class="card-text mb-2"><%= courses.Rating3 %></div>
+            Rating4:<div class="card-text mb-2"><%= courses.Rating4 %></div>
+            Rating5:<div class="card-text mb-2"><%= courses.Rating5 %></div>
+            Net_Rating:<div class="card-text mb-2"><%= courses.Net_Rating %></div>
+            Reviews:
+                
+                <%  courses.Reviews.forEach(review=>  {   %>
+
+                Rating1:<%= review.Rating1 %> 
+                Rating2:<%= review.Rating2 %>
+                Rating3:<%= review.Rating3 %> 
+                Reviewed By:<%= review.User.name %>  
+
+                 
+
+
+                <% })     %> 
+          
+        </div>
+    </div>
+
+
+<% })     %>
+
+</div>

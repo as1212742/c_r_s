@@ -1,0 +1,153 @@
+
+
+  <link rel="stylesheet" href="css/rating.css">
+  <% include ./partials/messages %>
+<div class="row mt-5">
+    <div class="col-md-6 m-auto">
+      <div class="card card-body">
+        <h1 class="text-center mb-3">
+          <i class="fas fa-user-plus"></i> Add a Review
+        </h1>
+       
+        <form action="/users/addReview" method="POST">
+          <div class="form-group">
+            <label for="name">Student Name</label>
+            <input
+              type="text"
+              id="name"
+              name="name"
+              class="form-control"
+              placeholder="Enter Name"
+              value="<%= typeof user.name != 'undefined' ? user.name : '' %>"
+            />
+          </div>
+          <div class="form-group">
+            <label for="stud_id">Student ID</label>
+            <input
+              type="text"
+              id="stud_id"
+              name="stud_id"
+              class="form-control"
+              placeholder="Enter Student Id"
+              value="<%= typeof user.stud_id != 'undefined' ? user.stud_id : '' %>"
+            />
+          </div>
+          <div class="form-group">
+            <label for="course">Course</label>
+            
+                <select id="course" name="course" class="browser-default custom-select">
+                    <option selected >Choose Course</option>
+                    <%courses.forEach(courses=>   {   %>
+                    <option value="<%=courses.name %>""><%=courses.name %></option>
+                    <% } ) %>
+                  </select>    
+                
+            
+           
+
+          </div>
+          <div class="form-group">
+            <label for="Rating1">Rating1 :</label>
+            <input
+              type="number"
+              id="rating1"
+              name="rating1"
+              class="form-control"
+              
+              
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="Rating2">Rating2 :</label>
+            <input
+              type="number"
+              id="rating2"
+              name="rating2"
+              class="form-control"
+              
+              
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="rating3">Rating3 :</label>
+            <input
+              type="number"
+              id="rating3"
+              name="rating3"
+              class="form-control"
+              
+              
+            />
+          </div>
+
+
+          <div class="form-group">
+            <label for="Rating4">Rating4 :</label>
+            <input
+              type="number"
+              id="rating4"
+              name="rating4"
+              class="form-control"
+              
+              
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="Rating5">Rating5 :</label>
+            <input
+              type="number"
+              id="rating5"
+              name="rating5"
+              class="form-control"
+              
+              
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="net_rating">Overall :</label>
+            <input
+              type="number"
+              id="net_rating"
+              name="net_rating"
+              class="form-control"
+              
+              onclick="addressFunction()"
+            />
+          </div>
+  
+  
+  
+  
+          <button type="submit" class="btn btn-primary btn-block">
+            Submit
+          </button>
+        </form>
+        </div>
+    </div>
+  </div>
+  <script> 
+    function addressFunction() 
+    { 
+      if (document.getElementById('Rating1')!=null) 
+      { 
+        document.getElementById('Net_rating').value=(parseInt(document. 
+                 getElementById('Rating1').value)+parseInt(document. 
+                 getElementById('Rating2').value)+parseInt(document. 
+                 getElementById('Rating3').value)+parseInt(document. 
+                 getElementById('Rating4').value)+parseInt(document. 
+                 getElementById('Rating5').value))/5; 
+       
+      } 
+          
+      else
+      { 
+       
+      } 
+    } 
+    </script> 
+
+
