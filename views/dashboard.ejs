@@ -1,4 +1,5 @@
 <h1 class="mt-4">Dashboard</h1>
+<% include ./partials/messages %>
 <p class="lead mb-3">Welcome <%= user.name %></p>
 <a href="/users/logout" class="btn btn-secondary">Logout</a>
 
@@ -39,7 +40,10 @@
                 Rating1:<%= review.rating1 %> 
                 Rating2:<%= review.rating2 %> 
                 Rating3:<%= review.rating3 %> 
-                Reviewed By:<%= review.student.name %>  
+                Rating4:<%= review.rating4 %> 
+                Rating5:<%= review.rating5 %> 
+                Net_Rating:<%= review.net_rating %> 
+                Reviewed By:<%= review.student %>  
                 </div>
             </div>
                  

@@ -77,7 +77,7 @@ router.post('/register', (req, res) => {
                 res.redirect('/users/login');
               })
               .catch(err => console.log(err));
-          });
+          });``
         });
       }
     });
@@ -126,9 +126,10 @@ router.get('/addReview', ensureAuthenticated,async (req, res) =>{
 });
 
 
-var course_id
 router.post('/addReview', ensureAuthenticated,async(req,res)=>{
-  
+  var review1
+var course_id
+var course_rating
   let errors=[]
   var { course,rating1, rating2, rating3, rating4 ,rating5,net_rating,stud_id} = req.body;
   //validation
@@ -137,7 +138,7 @@ router.post('/addReview', ensureAuthenticated,async(req,res)=>{
     errors.push({ msg: 'Please enter all fields' });
   }
 
-
+var review1id;
   if (errors.length > 0) {
     res.render('addReview', {
       errors,user: req.user,
@@ -148,34 +149,33 @@ router.post('/addReview', ensureAuthenticated,async(req,res)=>{
     console.log("\n",course+rating1+rating2+rating3+rating4+rating5+net_rating+stud_id)
     
          //get course._id
-     await Course.findOne({name:course},'_id', function(err,result){
-      if(err)
-        {errors.push({ msg: 'Cant find course' })
-            res.render('addReview', {
-              errors,
-              user: req.user,courses,student,rating1, rating2, rating3, rating4 ,rating5,net_rating
-            });
-          }
-
-          else{
-            course_id=result
-
-          }
-     
-    })
-
-
-
-   course=course_id._id
-    student=req.user._id
-   const review1 = new Review({
-     rating1, rating2, rating3, rating4 ,rating5,net_rating,student,course
-    })
    
-    review1.save()
+    student=req.user.name
+    review1 = new Review()
+     review1.rating1=rating1
+     review1.rating2=rating2
+     review1.rating3=rating3
+     review1.rating4=rating4
+     review1.rating5=rating5
+     review1.net_rating=net_rating
+     review1.student=student
+     review1.course=course
 
-    await User.findOneAndUpdate({ stud_id:stud_id  } ,{$push:{Reviewed:review1._id }} ,
-        function (err,result){
+    
+    review1.save()
+    
+    review1id=review1._id;
+
+  
+
+
+
+  
+   
+    
+
+     async function AddReviewToUser(){await User.findOneAndUpdate({ stud_id:stud_id  } ,{$addToSet:{Reviewed:review1id }} ,
+        async function (err,result){
           if(err){
             errors.push({ msg: 'Cant find user id' })
             res.render('addReview', {
@@ -188,30 +188,33 @@ router.post('/addReview', ensureAuthenticated,async(req,res)=>{
 
             req.flash(
               'success_msg',
-              'Review added'
+              'Review added to user'
             );
            
           }
         });
 
-       
+      }
         
+    var addReviewToUser= await AddReviewToUser()
 
-
-  course_rating=await Review.aggregate([
+ async function FindAllRatingOfCourse(){
+  await Review.aggregate([
 
           {$match:{
-            "Course":course
+            course:course
           }},
           {
             $group:{
     
-              _id:null,
-              rating1_avg:{$avg:"$rating1"},
-              rating2_avg:{$avg:"$rating2"},
-              rating3_avg:{$avg:"$rating3"},
-              rating4_avg:{$avg:"$rating4"},
-              net_rating_avg:{$avg:"$net_Rating"},
+              _id:null, 
+
+             rating1_avg:{$avg:"$rating1"},
+             rating2_avg:{$avg:"$rating2"},
+           rating3_avg:{$avg:"$rating3"},
+             rating4_avg:{$avg:"$rating4"},
+             rating5_avg:{$avg:"$rating5"},
+             net_rating_avg:{$avg:"$net_rating"},
               
     
             }
@@ -220,21 +223,39 @@ router.post('/addReview', ensureAuthenticated,async(req,res)=>{
           }
     
     
-        ])
-//update course
-    await Course.findOneAndUpdate({ _id: course } ,{$push:{Reviews:review1._id },
-    $set:{Rating1:course_rating.rating1_avg},
-    $set:{Rating2:course_rating.rating2_avg},
-    $set:{Rating3:course_rating.rating3_avg},
-    $set:{Rating4:course_rating.rating4_avg},
-    $set:{Rating5:course_rating.rating5_avg},
-    $set:{Net_Rating:course_rating.net_rating_avg},
+  ], async function(err,result){
+          if(err)
+          {
 
+          }
+          else{
+            console.log("\n",result)
+          course_rating=result[0]
+        console.log("course:",course_rating)
+      }
+        })
+      }
+var findAllRatingOfCourse=await FindAllRatingOfCourse()
+console.log("\n",course_rating)
+
+
+//update course
+async function UpdateRatingOfCourse(){
+  await Course.findOneAndUpdate({ name: course } ,{$addToSet:{Reviews:review1id },
+    $set:{Rating1:course_rating.rating1_avg
+    ,Rating2:course_rating.rating2_avg,
+    Rating3:course_rating.rating3_avg,
+    Rating4:course_rating.rating4_avg,
+    Rating5:course_rating.rating5_avg,
+    Net_Rating:course_rating.net_rating_avg
+  }
+    
     
     } ,
-          function (err,result){
+        async  function (err,result){
             if(err){
               errors.push({ msg: 'Cant find course' })
+              Review.deleteOne({_id:review1id})
               res.render('addReview', {
                 errors,
                 user: req.user,courses,stud_id,rating1, rating2, rating3, rating4 ,rating5,net_rating
@@ -245,7 +266,7 @@ router.post('/addReview', ensureAuthenticated,async(req,res)=>{
   
               req.flash(
                 'success_msg',
-                'Review added'
+                'Review added to course'
               );
               res.redirect('/dashboard');
             }
@@ -253,11 +274,15 @@ router.post('/addReview', ensureAuthenticated,async(req,res)=>{
       
 
 
-            
+        }   
+        
+        var updateRatingOfCourse=await UpdateRatingOfCourse()
 
 
+      }
+    
 
-}
+
 
 
 
@@ -282,7 +307,7 @@ router.post('/addCourse',(req,res)=>{
     errors.push({ msg: 'Please enter all fields' });
   }
 
-
+  var Reviews_Count=0
   if (errors.length > 0) {
     res.render('addCourse', {
       errors,
@@ -320,7 +345,7 @@ router.post('/addCourse',(req,res)=>{
             
     req.flash(
       'success_msg',
-      'Review added'
+      'Course added'
     );
     res.redirect('/dashboard');
 

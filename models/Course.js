@@ -57,7 +57,8 @@ const courseSchema=new Schema(
         {
             type:String,
             
-        },
+        }
+        ,
         Reviews:[
             {type:Schema.Types.ObjectId,
                 ref:"Review"

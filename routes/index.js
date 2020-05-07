@@ -9,7 +9,7 @@ router.get('/', forwardAuthenticated, (req, res) => res.render('welcome'));
 router.get('/dashboard', ensureAuthenticated, async (req, res) =>{
   //update this populate
  // courses=[dm,spe]
-   courses=await Course.find().populate({path:"Reviews",populate:{path:"student"}})
+   courses=await Course.find().populate({path:"Reviews"})
   // console.log("\n",courses)
 
    //course=await Course.find()

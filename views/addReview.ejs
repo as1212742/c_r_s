@@ -111,10 +111,11 @@
             <label for="net_rating">Overall :</label>
             <input
               type="number"
+              step="any"
               id="net_rating"
               name="net_rating"
               class="form-control"
-              
+            
               onclick="addressFunction()"
             />
           </div>
@@ -132,14 +133,14 @@
   <script> 
     function addressFunction() 
     { 
-      if (document.getElementById('Rating1')!=null) 
+      if (document.getElementById('rating1')!=null) 
       { 
-        document.getElementById('Net_rating').value=(parseInt(document. 
-                 getElementById('Rating1').value)+parseInt(document. 
-                 getElementById('Rating2').value)+parseInt(document. 
-                 getElementById('Rating3').value)+parseInt(document. 
-                 getElementById('Rating4').value)+parseInt(document. 
-                 getElementById('Rating5').value))/5; 
+        document.getElementById('net_rating').value=(parseInt(document. 
+                 getElementById('rating1').value)+parseInt(document. 
+                 getElementById('rating2').value)+parseInt(document. 
+                 getElementById('rating3').value)+parseInt(document. 
+                 getElementById('rating4').value)+parseInt(document. 
+                 getElementById('rating5').value))/5; 
        
       } 
           

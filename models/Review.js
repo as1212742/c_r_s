@@ -9,49 +9,47 @@ const reviewSchema=new Schema(
         
         
         rating1:{
-            type:String,
+            type:Number,
             
 
 
         },
         rating2:{
-            type:String,
+            type:Number,
             
 
 
         },
         rating3:{
-            type:String,
+            type:Number,
             
 
 
         },
         rating4:{
-            type:String,
+            type:Number,
             
 
 
         },
         rating5:{
-            type:String,
+            type:Number,
             
 
 
         },
-        net_Rating:
+        net_rating:
         {
-            type:String,
+            type:Number,
             
         },
         student:
-            {type:Schema.ObjectId,
-                ref:"User"
+            {type:String
 
            },
 
            course:{
-            type:Schema.ObjectId,
-            ref:"Course"
+            type:String
   
   
           }
