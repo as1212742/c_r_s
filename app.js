@@ -14,7 +14,7 @@ require('./config/passport')(passport);
 const db = require('./config/keys').mongoURI;
 
 // Connect to MongoDB
-mongoose.connect('mongodb://localhost/LoginApp',{
+mongoose.connect(db,{
     useNewUrlParser:true  ,useUnifiedTopology:true
 })
 .then(()=>console.log("Successful"))
