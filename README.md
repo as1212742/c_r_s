@@ -13,11 +13,12 @@ $ npm install
 ```sh
 $ npm start
 # Or run with Nodemon
-$ npm run dev
 
 # Visit http://localhost:5000
 ```
-
-### MongoDB
-
-Open "config/keys.js" and add your MongoDB URI, local or Atlas
+1.Login & Register 
+2.Add course & Add Review
+3.Admin & Student seggregation ( Upcoming)
+4.Improved UI of Dashboard (Upcoming)
+5.Public Dashboard (without login) (Upcoming)
+6.Add Comments (Upcoming)
