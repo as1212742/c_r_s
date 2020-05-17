@@ -1,6 +1,6 @@
 # IIITB Course Review System
 
-This is a user login and registration app using Node.js, Express, Passport, Mongoose, EJS and some other packages.
+A Review system to help the students in taking up the electives in the upcoming semester. 
 
 ### Version: 2.0.0
 
