@@ -9,7 +9,7 @@ const Review=require('../models/Review')
 const Course=require('../models/Course')
 const Professor=require('../models/Professor')
 var courses
-const { ensureAuthenticated,forwardAuthenticated } = require('../config/auth');
+const { ensureAuthenticated,forwardAuthenticated,ensureadminAuthenticated } = require('../config/auth');
 
 // Login Page
 router.get('/login', forwardAuthenticated, (req, res) => res.render('login'));
@@ -290,7 +290,7 @@ async function UpdateRatingOfCourse(){
 
 //add a Course
 
-router.get('/addCourse', ensureAuthenticated, (req, res) =>{
+router.get('/addCourse',ensureadminAuthenticated, (req, res) =>{
   
   res.render('addCourse')
 

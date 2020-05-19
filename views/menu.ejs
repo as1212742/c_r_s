@@ -14,7 +14,10 @@
 		<li>
 			<a href="/">Home</a>
 			<a href="/users/addReview">Add a Review</a>
+			<% if (user.name=="admin") {    %>
 			<a href="/users/addCourse">Add Course</a>
+			<%         }                    %>
+
 		</li>
 		<a href="/users/logout">Logout</a>
 			 

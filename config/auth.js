@@ -11,5 +11,16 @@ module.exports = {
       return next();
     }
     res.redirect('/dashboard');      
+  },
+  ensureadminAuthenticated: function(req,res,next){
+if(req.isAuthenticated()){
+  if(req.user.name=="admin")
+  {
+    return next();
+  }}
+  req.flash('error_msg', 'Only admin can view that resource');
+    res.redirect('/users/login');
+
+
   }
 };
