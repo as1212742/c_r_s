@@ -14,7 +14,8 @@ module.exports = {
   },
   ensureadminAuthenticated: function(req,res,next){
 if(req.isAuthenticated()){
-  if(req.user.name=="admin")
+  const user=req.user
+  if(user.name=="admin")
   {
     return next();
   }}

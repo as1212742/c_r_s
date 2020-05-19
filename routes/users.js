@@ -290,15 +290,29 @@ async function UpdateRatingOfCourse(){
 
 //add a Course
 
-router.get('/addCourse',ensureadminAuthenticated, (req, res) =>{
+router.get('/addCourse',ensureAuthenticated, (req, res) =>{
   
-  res.render('addCourse')
+  if(req.user.name!="admin")
+  {
+            
+    req.flash(
+      'err_msg',
+      'Only admin can view the resource'
+    );
+    res.redirect('/dashboard');
 
+  }
+  else{
+  res.render('addCourse', {
+    user:req.user
+  })}
 })
 
 
 
 router.post('/addCourse',(req,res)=>{
+
+  
   
   let errors=[]
   const { name,sem,desc,Faculty} = req.body;
