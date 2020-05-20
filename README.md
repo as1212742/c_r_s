@@ -21,9 +21,10 @@ $ npm start
 3.Admin added 
 4.Improved UI of Dashboard
 5.Add Comments 
-6.Like Comments (Upcoming)
-7.Sort Courses based on Rating & Difficulty (Upcoming)
-8.Sort Reviews based on Most liked (Upcoming)
+6."Delete course" for admin 
+7.Like Comments (Upcoming)
+8.Sort Courses based on Rating & Difficulty (Upcoming)
+9.Sort Reviews based on Most liked (Upcoming)
 
 
 ```
