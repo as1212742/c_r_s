@@ -8,39 +8,21 @@ const reviewSchema=new Schema(
         
         
         
-        rating1:{
+        rating:{
             type:Number,
             
 
 
         },
-        rating2:{
+        
+        difficulty:{
             type:Number,
             
 
 
         },
-        rating3:{
-            type:Number,
-            
-
-
-        },
-        rating4:{
-            type:Number,
-            
-
-
-        },
-        rating5:{
-            type:Number,
-            
-
-
-        },
-        net_rating:
-        {
-            type:Number,
+        
+        comment:{type:String,
             
         },
         student:

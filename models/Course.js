@@ -23,42 +23,22 @@ const courseSchema=new Schema(
             type:String,
            
         },
-        Rating1:{
+        Rating:{
             type:String,
             
 
 
         },
-        Rating2:{
+        Difficulty:{
             type:String,
             
 
 
         },
-        Rating3:{
-            type:String,
-            
-
-
-        },
-        Rating4:{
-            type:String,
-            
-
-
-        },
-        Rating5:{
-            type:String,
-            
-
-
-        },
-        Net_Rating:
-        {
-            type:String,
-            
-        }
-        ,
+        
+       
+        
+       
         Reviews:[
             {type:Schema.Types.ObjectId,
                 ref:"Review"

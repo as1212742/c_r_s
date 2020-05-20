@@ -49,76 +49,46 @@
 
           </div>
           <div class="form-group">
-            <label for="Rating1">Rating1 :</label>
+            <label for="Rating">Rating :</label>
             <input
               type="number"
-              id="rating1"
-              name="rating1"
+              id="rating"
+              name="rating"
               class="form-control"
               
               
             />
           </div>
 
-          <div class="form-group">
-            <label for="Rating2">Rating2 :</label>
-            <input
-              type="number"
-              id="rating2"
-              name="rating2"
-              class="form-control"
-              
-              
-            />
-          </div>
+         
 
-          <div class="form-group">
-            <label for="rating3">Rating3 :</label>
-            <input
-              type="number"
-              id="rating3"
-              name="rating3"
-              class="form-control"
-              
-              
-            />
-          </div>
+
 
 
           <div class="form-group">
-            <label for="Rating4">Rating4 :</label>
+            <label for="difficulty">Difficulty :</label>
             <input
               type="number"
-              id="rating4"
-              name="rating4"
-              class="form-control"
               
-              
-            />
-          </div>
-
-          <div class="form-group">
-            <label for="Rating5">Rating5 :</label>
-            <input
-              type="number"
-              id="rating5"
-              name="rating5"
-              class="form-control"
-              
-              
-            />
-          </div>
-
-          <div class="form-group">
-            <label for="net_rating">Overall :</label>
-            <input
-              type="number"
-              step="any"
-              id="net_rating"
-              name="net_rating"
+              id="difficulty"
+              name="difficulty"
               class="form-control"
             
-              onclick="addressFunction()"
+              
+            />
+          </div>
+
+
+          <div class="form-group">
+            <label for="comment">Review :</label>
+            <input
+              type="text"
+              
+              id="comment"
+              name="comment"
+              class="form-control"
+            
+              
             />
           </div>
   
@@ -133,24 +103,7 @@
     </div>
   </div>
   <script> 
-    function addressFunction() 
-    { 
-      if (document.getElementById('rating1')!=null) 
-      { 
-        document.getElementById('net_rating').value=(parseInt(document. 
-                 getElementById('rating1').value)+parseInt(document. 
-                 getElementById('rating2').value)+parseInt(document. 
-                 getElementById('rating3').value)+parseInt(document. 
-                 getElementById('rating4').value)+parseInt(document. 
-                 getElementById('rating5').value))/5; 
-       
-      } 
-          
-      else
-      { 
-       
-      } 
-    } 
+    
     </script> 
 
 

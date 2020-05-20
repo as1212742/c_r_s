@@ -131,9 +131,9 @@ router.post('/addReview', ensureAuthenticated,async(req,res)=>{
 var course_id
 var course_rating
   let errors=[]
-  var { course,rating1, rating2, rating3, rating4 ,rating5,net_rating,stud_id} = req.body;
+  var { course,rating,difficulty,comment,stud_id} = req.body;
   //validation
-  if (!stud_id || !rating1 || !rating2 || !rating3 ||!rating4 || !rating5 || !net_rating) {
+  if (!stud_id || !rating || !difficulty) {
    // console.log("\n",course+rating1+rating2+rating3+rating4+rating5+net_rating+stud_id)
     errors.push({ msg: 'Please enter all fields' });
   }
@@ -142,22 +142,21 @@ var review1id;
   if (errors.length > 0) {
     res.render('addReview', {
       errors,user: req.user,
-      stud_id,courses,rating1, rating2, rating3, rating4 ,rating5,net_rating
+      stud_id,courses,rating,difficulty,comment
     });
   } else {
 
-    console.log("\n",course+rating1+rating2+rating3+rating4+rating5+net_rating+stud_id)
+    //console.log("\n",course+rating1+rating2+rating3+rating4+rating5+net_rating+stud_id)
     
          //get course._id
    
     student=req.user.name
     review1 = new Review()
-     review1.rating1=rating1
-     review1.rating2=rating2
-     review1.rating3=rating3
-     review1.rating4=rating4
-     review1.rating5=rating5
-     review1.net_rating=net_rating
+     review1.rating=rating
+     review1.difficulty=difficulty
+    
+    
+     review1.comment=comment
      review1.student=student
      review1.course=course
 
@@ -180,7 +179,7 @@ var review1id;
             errors.push({ msg: 'Cant find user id' })
             res.render('addReview', {
               errors,
-              user: req.user,courses,student,rating1, rating2, rating3, rating4 ,rating5,net_rating
+              user: req.user,courses,student,rating,difficulty,comment
             });
           }
 
@@ -209,13 +208,10 @@ var review1id;
     
               _id:null, 
 
-             rating1_avg:{$avg:"$rating1"},
-             rating2_avg:{$avg:"$rating2"},
-           rating3_avg:{$avg:"$rating3"},
-             rating4_avg:{$avg:"$rating4"},
-             rating5_avg:{$avg:"$rating5"},
-             net_rating_avg:{$avg:"$net_rating"},
-              
+             rating_avg:{$avg:"$rating"},
+             difficulty_avg:{$avg:"$difficulty"},
+    
+          
     
             }
     
@@ -242,12 +238,9 @@ console.log("\n",course_rating)
 //update course
 async function UpdateRatingOfCourse(){
   await Course.findOneAndUpdate({ name: course } ,{$addToSet:{Reviews:review1id },
-    $set:{Rating1:course_rating.rating1_avg
-    ,Rating2:course_rating.rating2_avg,
-    Rating3:course_rating.rating3_avg,
-    Rating4:course_rating.rating4_avg,
-    Rating5:course_rating.rating5_avg,
-    Net_Rating:course_rating.net_rating_avg
+    $set:{Rating:course_rating.rating_avg
+    ,Difficulty:course_rating.difficulty_avg,
+   
   }
     
     
@@ -258,7 +251,7 @@ async function UpdateRatingOfCourse(){
               Review.deleteOne({_id:review1id})
               res.render('addReview', {
                 errors,
-                user: req.user,courses,stud_id,rating1, rating2, rating3, rating4 ,rating5,net_rating
+                user: req.user,courses,stud_id,rating,difficulty,comment
               });
             }
   
@@ -328,16 +321,13 @@ router.post('/addCourse',(req,res)=>{
       name,sem,desc,Faculty
     });
   } else {
-    Rating1=0
-    Rating2=0
-    Rating3=0
-    Rating4=0
-    Rating5=0
-    Net_Rating=0
+    Rating="No Reviews"
+    Difficulty="No Reviews"
+    
 
 
     const course1 = new Course({
-      name,sem,desc,Faculty,Rating1,Rating2,Rating3,Rating4,Rating5,Net_Rating
+      name,sem,desc,Faculty,Rating,Difficulty
     });
 
 /*

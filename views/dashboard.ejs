@@ -1,43 +1,101 @@
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js">
+</script>
+<style> 
+    .panel, .flip {
+      padding: 5px;
+      text-align: left;
+      background-color: #e5eecc;
+      border: solid 1px #c3c3c3;
+    }
+    
+    .panel {
+      padding: 50px;
+      display: none; 
+      text-align :left;
+    }
+
+   
+    </style>
 <% include ./partials/messages %>
+
 
 <% include menu %>
 <br/>
 <p class="lead mb-3">Welcome <%= user.name %></p>
 
 
-<div class="card mt-5">
 <%  courses.forEach(courses=>   {   %>
     <div class="card mt-4">
         
         <div class="card-body">
             <h4 class="card-title"><%=courses.name %></h4>
             <div class="card-subtitletext-muted mb-2">
-                <%= courses.sem %>
+                Sem <%= courses.sem %>
             </div>
             <div class="card-text mb-2"><%= courses.desc %></div>
             <div class="card-text mb-2"><%= courses.Faculty %></div>            
-            Rating1:<div class="card-text mb-2"><%= courses.Rating1 %></div>
-            Rating2:<div class="card-text mb-2"><%= courses.Rating2 %></div>
-            Rating3:<div class="card-text mb-2"><%= courses.Rating3 %></div>
-            Rating4:<div class="card-text mb-2"><%= courses.Rating4 %></div>
-            Rating5:<div class="card-text mb-2"><%= courses.Rating5 %></div>
-            Net_Rating:<div class="card-text mb-2"><%= courses.Net_Rating %></div>
-            Reviews:<div class="card-text mb-2"> <%  courses.Reviews.forEach(review=>  {   %>
-            <div class="card-text mb-2"> 
-                Rating1:<%= review.rating1 %> 
-                Rating2:<%= review.rating2 %> 
-                Rating3:<%= review.rating3 %> 
-                Rating4:<%= review.rating4 %> 
-                Rating5:<%= review.rating5 %> 
-                Net_Rating:<%= review.net_rating %> 
-                Reviewed By:<%= review.student %>  
-                </div>
+            <div class="card-text mb-2">
+            Rating: <span class="rating"><%= courses.Rating %> </span>
             </div>
+            <div class="card-text mb-2">
+            Difficulty: <span class="Difficulty"><%= courses.Difficulty %> </span>
+            </div>
+
+
+            <div class="flip">+ Reviews</div>
+            <div class="panel">
                  
-                <% })     %> 
-             </div>   
+                <div class="card-text mb-2"> <%  courses.Reviews.forEach(review=>  { if(review.comment) { %>
+                    <div class="card-text mb-2"> 
+                        
+                        " <%= review.comment %> " 
+                        - <%= review.student %>  
+                        </div>
+                    
+                         
+                        <%   } })     %> 
+                     </div> 
+            </div>
+
+           
+
+            
          </div>
-    
+    </div>
 <%  })  %>
-</div>
+
+
+
+
+
+<script>
+
+$(document).ready(function(){
+    $(".rating").each(function(){
+        $(this).text(parseFloat($(this).text()).toFixed(1));
+
+    })
+   
+    $(".Difficulty").each(function(){
+        $(this).text(parseFloat($(this).text()).toFixed(1));
+
+    })
+    $(".panel").hide();
+
+
+  $(".flip").click(function(){
+    $(this).next().slideToggle("slow");
+  
+  if ($(this).text()=="+ Reviews") {
+    $(this).text("- Reviews"); } 
+ else if ($(this).text()=="- Reviews")
+  {
+   $(this).text("+ Reviews");
+   }
+  });
+  
+  
+});
+
+</script>
