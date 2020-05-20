@@ -2,7 +2,7 @@
 
 A Review system to help the students in taking up the electives in the upcoming semester. 
 
-### Version: 2.0.0
+### Version: 2.1.0
 
 ### Usage
 
@@ -17,11 +17,10 @@ $ npm start
 # Visit http://localhost:5000
 
 1.Login & Register 
-2.Add course & Add Review
-3.Admin & Student seggregation 
-4.Improved UI of Dashboard (Upcoming)
-5.Public Dashboard (without login) (Upcoming)
-6.Add Comments (Upcoming)
+2.Add course & Add Review (Updated : Structure of Course & Review )
+3.Admin added 
+4.Improved UI of Dashboard
+5.Add Comments 
 
 
 ```
