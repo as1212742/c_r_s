@@ -18,7 +18,7 @@ $ npm start
 
 1.Login & Register 
 2.Add course & Add Review
-3.Admin & Student seggregation ( Upcoming)
+3.Admin & Student seggregation 
 4.Improved UI of Dashboard (Upcoming)
 5.Public Dashboard (without login) (Upcoming)
 6.Add Comments (Upcoming)
