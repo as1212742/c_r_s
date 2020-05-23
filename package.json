@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node app.js",
     "dev": "nodemon app.js",
-    "test": "mocha --timeout 10000 ./test/app_test.js ./test/mongo_test.js"
+    "test": "mocha --timeout 10000 --exit ./test/app_test.js ./test/mongo_test.js"
   },
   "keywords": [],
   "author": "",
